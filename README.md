@@ -6,7 +6,55 @@ Supports:
 * Disabling asset providers
 * CDN killswitch environment variable to disable all CDNs
 
-See /examples for further details.
+
+## Usage
+
+The host application is required to configure the desired asset providers, and handle the selection logic with an object that responds to #select and returns a provider:
+
+```ruby
+# providers = {
+#   :cloudfront => {
+#     :subdomain => "example",
+#     :domain    => "cloudfront.net",
+#     :cdn       => true
+#   },
+#   :edgecast => {
+#     :subdomain => "assets",
+#     :domain    => example.com,
+#     :cdn       => true
+#   },
+#   :internal => {
+#     :subdomain => "assets2",
+#     :domain    => example.com,
+#     :cdn       => false
+#   }
+# }
+#
+#
+# provider_pool     = ProviderPool.new(providers)
+# config.asset_host = AssetHostSelection::AssetHostname.new(provider_pool)
+
+class ProviderPool
+
+  attr_reader :providers
+
+  def initialize(provider_attributes)
+    @providers = AssetHostSelection::AssetProvider.build_all(provider_attributes)
+  end
+
+  def select(request)
+    account  = request.env["account"]
+    provider = account.asset_provider
+
+    if provider.try(:enabled?)
+      provider
+    else
+      providers[:internal]
+    end
+  end
+
+end
+```
 
 ## Copyright and license
 Copyright 2013 Zendesk
