@@ -1,5 +1,12 @@
-asset_host_selection
-====================
+## Asset Host Selection
+A basic pattern for ActionController to select between multiple CDNs.
+
+Supports:
+* Multiple asset providers
+* Disabling asset providers
+* CDN killswitch environment variable to disable all CDNs
+
+See /examples for further details.
 
 ## Copyright and license
 Copyright 2013 Zendesk
