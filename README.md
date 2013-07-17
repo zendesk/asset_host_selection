@@ -1,4 +1,5 @@
-## Asset Host Selection
+## Asset Host Selection [![Build Status](https://secure.travis-ci.org/zendesk/asset_host_selection.png)](http://travis-ci.org/zendesk/asset_host_selection)
+
 A basic pattern for ActionController to select between multiple CDNs.
 
 Supports:
