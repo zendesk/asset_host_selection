@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/zendesk/asset_host_selection"
   s.summary     = "Multiple asset host selection for ActionController"
   s.description = "Adds support for serving assets from multiple providers."
+  s.license     = "Apache License Version 2.0"
 
   s.required_rubygems_version = ">= 1.3.6"
 
