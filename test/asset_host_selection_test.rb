@@ -3,12 +3,17 @@ require_relative "helper"
 describe AssetHostSelection do
 
   before do
-    @providers = AssetHostSelection::AssetProvider.build_all(
+    provider_settings = {
       :cdn   => { :domain => 'example.com', :subdomain => 'cdn',   :enabled => true, :cdn => true  },
       :local => { :domain => 'example.com', :subdomain => 'local', :enabled => true, :cdn => false }
-    )
-    @cdn   = @providers[:cdn]
-    @local = @providers[:local]
+    }
+    provider_settings[:default] = provider_settings[:cdn]
+    provider_settings[:disabled] = provider_settings[:local]
+    @providers = AssetHostSelection::AssetProvider.build_all(provider_settings)
+    @cdn       = @providers[:cdn]
+    @local     = @providers[:local]
+    @default   = @providers[:default]
+    @disabled  = @providers[:disabled]
   end
 
 
@@ -17,6 +22,11 @@ describe AssetHostSelection do
     it "has a host" do
       assert_equal "cdn.example.com",   @cdn.host
       assert_equal "local.example.com", @local.host
+    end
+
+    it "creates only one provider object per settings" do
+      assert_equal @cdn, @default
+      assert_equal @local, @disabled
     end
 
     describe "#enabled?" do

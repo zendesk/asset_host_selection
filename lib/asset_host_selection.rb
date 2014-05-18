@@ -1,4 +1,4 @@
-module AssetHostSelection
+ module AssetHostSelection
 
   class AssetProvider
 
@@ -6,8 +6,12 @@ module AssetHostSelection
 
     def self.build_all(attributes = {})
       providers = {}
+      settings_to_provider = {}
+      settings_to_provider.compare_by_identity
       attributes.each do |key, settings|
-        providers[key.to_sym] = new(settings)
+        providers[key.to_sym] = settings_to_provider.fetch(settings) do
+          settings_to_provider[settings] = new(settings)
+        end
       end
 
       providers
