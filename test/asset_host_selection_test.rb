@@ -3,13 +3,12 @@ require_relative "helper"
 describe AssetHostSelection do
 
   before do
-    provider_settings = {
+    @providers = AssetHostSelection::AssetProvider.build_all(
       :cdn   => { :domain => 'example.com', :subdomain => 'cdn',   :enabled => true, :cdn => true  },
       :local => { :domain => 'example.com', :subdomain => 'local', :enabled => true, :cdn => false }
-    }
-    @providers = AssetHostSelection::AssetProvider.build_all(provider_settings)
-    @cdn       = @providers[:cdn]
-    @local     = @providers[:local]
+    )
+    @cdn   = @providers[:cdn]
+    @local = @providers[:local]
   end
 
 
