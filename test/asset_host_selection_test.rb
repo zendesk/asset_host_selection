@@ -19,6 +19,18 @@ describe AssetHostSelection do
       assert_equal "local.example.com", @local.host
     end
 
+    it "creates only one provider object per settings" do
+      provider_settings = {
+        :cdn   => { :domain => 'example.com', :subdomain => 'cdn',   :enabled => true, :cdn => true  },
+        :local => { :domain => 'example.com', :subdomain => 'local', :enabled => true, :cdn => false }
+      }
+      provider_settings[:default] = provider_settings[:cdn]
+      provider_settings[:disabled] = provider_settings[:local]
+      providers = AssetHostSelection::AssetProvider.build_all(provider_settings)
+      assert_equal providers[:cdn], providers[:default]
+      assert_equal providers[:local], providers[:disabled]
+    end
+
     describe "#enabled?" do
       after do
         ENV.delete("DISABLE_CDN")
