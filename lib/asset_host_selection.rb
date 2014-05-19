@@ -1,4 +1,4 @@
- module AssetHostSelection
+module AssetHostSelection
 
   class AssetProvider
 
