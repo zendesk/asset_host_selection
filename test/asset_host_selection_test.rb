@@ -7,13 +7,9 @@ describe AssetHostSelection do
       :cdn   => { :domain => 'example.com', :subdomain => 'cdn',   :enabled => true, :cdn => true  },
       :local => { :domain => 'example.com', :subdomain => 'local', :enabled => true, :cdn => false }
     }
-    provider_settings[:default] = provider_settings[:cdn]
-    provider_settings[:disabled] = provider_settings[:local]
     @providers = AssetHostSelection::AssetProvider.build_all(provider_settings)
     @cdn       = @providers[:cdn]
     @local     = @providers[:local]
-    @default   = @providers[:default]
-    @disabled  = @providers[:disabled]
   end
 
 
@@ -25,8 +21,15 @@ describe AssetHostSelection do
     end
 
     it "creates only one provider object per settings" do
-      assert_equal @cdn, @default
-      assert_equal @local, @disabled
+      provider_settings = {
+        :cdn   => { :domain => 'example.com', :subdomain => 'cdn',   :enabled => true, :cdn => true  },
+        :local => { :domain => 'example.com', :subdomain => 'local', :enabled => true, :cdn => false }
+      }
+      provider_settings[:default] = provider_settings[:cdn]
+      provider_settings[:disabled] = provider_settings[:local]
+      providers = AssetHostSelection::AssetProvider.build_all(provider_settings)
+      assert_equal providers[:cdn], providers[:default]
+      assert_equal providers[:local], providers[:disabled]
     end
 
     describe "#enabled?" do
