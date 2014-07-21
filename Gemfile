@@ -4,3 +4,4 @@ gemspec
 
 gem 'purdytest'
 gem 'minitest'
+gem 'bump'
