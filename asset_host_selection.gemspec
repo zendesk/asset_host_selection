@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name        = "asset_host_selection"
-  s.version     = "1.0.0"
+  s.version     = "1.0.1"
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Eric Chapweske", "Morten Primdahl"]
-  s.email       = ["eac@zendesk.com"]
+  s.authors     = ["Eric Chapweske", "Morten Primdahl", "Gary Grossman"]
+  s.email       = ["ggrossman@zendesk.com"]
   s.homepage    = "http://github.com/zendesk/asset_host_selection"
   s.summary     = "Multiple asset host selection for ActionController"
   s.description = "Adds support for serving assets from multiple providers."
