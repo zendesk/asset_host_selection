@@ -1,4 +1,6 @@
 require 'bundler/setup'
+require 'bundler/gem_tasks'
+require 'bump/tasks'
 require 'rake'
 require 'rake/testtask'
 
