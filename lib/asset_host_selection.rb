@@ -47,7 +47,9 @@ module AssetHostSelection
       @selector = selector
     end
 
-    def call(source, request)
+    def call(source, request = nil)
+      return nil if !request
+
       asset_provider = @selector.select(request)
       host           = asset_provider.host if asset_provider
 

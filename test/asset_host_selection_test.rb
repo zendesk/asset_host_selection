@@ -88,6 +88,12 @@ describe AssetHostSelection do
       end
     end
 
+    describe "with no request" do
+      it "uses no host" do
+        assert_nil @asset_host.call("hello.gif")
+      end
+    end
+
   end
 
   class TestProviderPool
