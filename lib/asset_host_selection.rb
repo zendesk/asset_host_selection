@@ -47,7 +47,9 @@ module AssetHostSelection
       @selector = selector
     end
 
-    def call(source, request)
+    def call(source, request = nil)
+      return unless request # rails 4 does not pass request in during asset compilation
+
       asset_provider = @selector.select(request)
       host           = asset_provider.host if asset_provider
 
