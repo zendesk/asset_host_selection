@@ -88,7 +88,7 @@ describe AssetHostSelection do
       end
     end
 
-    describe "with no request" do
+    describe "on rails 4 during asset compilation / without request" do
       it "uses no host" do
         assert_nil @asset_host.call("hello.gif")
       end
